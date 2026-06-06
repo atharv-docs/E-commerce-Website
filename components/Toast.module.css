@@ -1,0 +1,95 @@
+.container {
+  position: fixed;
+  top: 80px;
+  right: 16px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 360px;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--surface);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  animation: slideIn 0.3s ease-out;
+  border-left: 4px solid;
+}
+
+.toast.success {
+  border-left-color: var(--accent);
+}
+
+.toast.success .icon {
+  color: var(--accent);
+}
+
+.toast.error {
+  border-left-color: var(--danger);
+}
+
+.toast.error .icon {
+  color: var(--danger);
+}
+
+.toast.info {
+  border-left-color: var(--primary);
+}
+
+.toast.info .icon {
+  color: var(--primary);
+}
+
+.icon {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.message {
+  flex: 1;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 200ms ease-in-out;
+}
+
+.closeBtn:hover {
+  background: var(--background);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    left: 16px;
+    right: 16px;
+    max-width: none;
+  }
+}

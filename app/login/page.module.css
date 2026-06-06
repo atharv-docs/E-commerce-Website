@@ -1,0 +1,110 @@
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 72px);
+  padding: 32px 16px;
+  background: linear-gradient(135deg, #FFF5F0 0%, #F8F9FA 100%);
+}
+
+.container {
+  width: 100%;
+  max-width: 440px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 40px;
+  background: var(--surface);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+}
+
+.header {
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  color: var(--secondary);
+  margin-bottom: 8px;
+}
+
+.header p {
+  color: var(--text-secondary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inputIcon {
+  position: relative;
+}
+
+.inputIcon > :first-child {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.inputIcon :global(.inputWrapper) {
+  padding-left: 40px;
+}
+
+.forgotLink {
+  text-align: right;
+  font-size: 0.875rem;
+  color: var(--primary);
+  font-weight: 500;
+  margin-top: -8px;
+}
+
+.forgotLink:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  text-align: center;
+}
+
+.footer p {
+  color: var(--text-secondary);
+}
+
+.toggleBtn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 4px;
+}
+
+.toggleBtn:hover {
+  text-decoration: underline;
+}
+
+.demoNote {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  padding: 12px;
+  background: var(--background);
+  border-radius: 8px;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 24px 16px;
+  }
+}
