@@ -74,7 +74,7 @@ export default function CartPage() {
             )}
 
             <div className={styles.summaryRow}>
-              <span>GST</span>
+              <span>GST (included)</span>
               <span>{tax === 0 ? "Included in prices" : formatCurrencyExact(tax)}</span>
             </div>
 
