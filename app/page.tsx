@@ -20,8 +20,8 @@ export default function Home() {
             Thoughtful finds. Better everyday living.
           </h1>
           <p className={styles.heroSubtitle}>
-            Your one-stop destination for electronics, fashion, home & living, and more.
-            Shop now and enjoy exclusive discounts!
+            Explore a curated mix of tech, style and everyday essentials, with prices in INR and a smoother way to shop.
+            Find your next everyday favourite.
           </p>
           <div className={styles.heroActions}>
             <Link href="/products" className={styles.primaryBtn}>
