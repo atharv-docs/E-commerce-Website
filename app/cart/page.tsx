@@ -13,7 +13,7 @@ export default function CartPage() {
   const { items, total } = state;
 
   const shipping = total > 499 ? 0 : 49;
-  const tax = total * 0.18;
+  const tax = 0;
   const grandTotal = total + shipping + tax;
 
   if (items.length === 0) {
@@ -64,7 +64,7 @@ export default function CartPage() {
 
             <div className={styles.summaryRow}>
               <span>Shipping</span>
-              <span>{shipping === 0 ? <span className={styles.free}>FREE</span> : `$${shipping.toFixed(2)}`}</span>
+              <span>{shipping === 0 ? <span className={styles.free}>FREE</span> : formatCurrencyExact(shipping)}</span>
             </div>
 
             {shipping > 0 && (
@@ -74,7 +74,7 @@ export default function CartPage() {
             )}
 
             <div className={styles.summaryRow}>
-              <span>Tax (8%)</span>
+              <span>GST</span>
               <span>${tax.toFixed(2)}</span>
             </div>
 
