@@ -9,6 +9,7 @@ import { useToast } from '@/context/ToastContext';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import styles from './page.module.css';
+import { isSupabaseConfigured } from '@/lib/supabase';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -174,7 +175,7 @@ export default function LoginPage() {
           </div>
 
           <p className={styles.demoNote}>
-            🔒 Demo Mode: Enter any email and password (6+ chars) to login
+            🔒 {isSupabaseConfigured ? "Secure sign-in powered by Supabase." : "Demo mode: configure Supabase to enable real accounts."}
           </p>
         </div>
       </div>
