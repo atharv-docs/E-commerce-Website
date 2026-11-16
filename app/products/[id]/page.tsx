@@ -9,6 +9,7 @@ import { useCart } from '@/context/CartContext';
 import { useToast } from '@/context/ToastContext';
 import { ProductCard } from '@/components/ProductCard';
 import styles from './page.module.css';
+import { formatCurrency } from '@/lib/format';
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -95,11 +96,11 @@ export default function ProductDetailPage() {
             </div>
 
             <div className={styles.price}>
-              <span className={styles.currentPrice}>${product.price}</span>
+              <span className={styles.currentPrice}>{formatCurrency(product.price)}</span>
               {product.originalPrice && (
                 <>
-                  <span className={styles.originalPrice}>${product.originalPrice}</span>
-                  <span className={styles.save}>Save ${product.originalPrice - product.price}</span>
+                  <span className={styles.originalPrice}>{formatCurrency(product.originalPrice)}</span>
+                  <span className={styles.save}>Save {formatCurrency(product.originalPrice - product.price)}</span>
                 </>
               )}
             </div>
