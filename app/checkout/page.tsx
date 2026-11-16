@@ -10,6 +10,7 @@ import { useToast } from '@/context/ToastContext';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import styles from './page.module.css';
+import { formatCurrency, formatCurrencyExact } from '@/lib/format';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -34,8 +35,8 @@ export default function CheckoutPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const { items, total } = state;
-  const shipping = total > 50 ? 0 : 9.99;
-  const tax = total * 0.08;
+  const shipping = total > 499 ? 0 : 49;
+  const tax = total * 0.18;
   const grandTotal = total + shipping + tax;
 
   const validateShipping = () => {
@@ -233,7 +234,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <Button type="submit" fullWidth size="lg" loading={loading}>
-                  Place Order - ${grandTotal.toFixed(2)}
+                  Place Order - {formatCurrencyExact(grandTotal)}
                 </Button>
               </form>
             )}
@@ -250,7 +251,7 @@ export default function CheckoutPage() {
                     <span className={styles.itemName}>{item.product.name}</span>
                     <span className={styles.itemQty}>Qty: {item.quantity}</span>
                   </div>
-                  <span className={styles.itemPrice}>${(item.product.price * item.quantity).toFixed(2)}</span>
+                  <span className={styles.itemPrice}>{formatCurrency(item.product.price * item.quantity)}</span>
                 </div>
               ))}
             </div>
@@ -258,15 +259,15 @@ export default function CheckoutPage() {
             <div className={styles.summaryTotals}>
               <div className={styles.summaryRow}>
                 <span>Subtotal</span>
-                <span>${total.toFixed(2)}</span>
+                <span>{formatCurrencyExact(total)}</span>
               </div>
               <div className={styles.summaryRow}>
                 <span>Shipping</span>
-                <span>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
+                <span>{shipping === 0 ? 'FREE' : `${formatCurrencyExact(shipping)}`}</span>
               </div>
               <div className={styles.summaryRow}>
                 <span>Tax</span>
-                <span>${tax.toFixed(2)}</span>
+                <span>{formatCurrencyExact(tax)}</span>
               </div>
               <div className={styles.divider}></div>
               <div className={styles.summaryRow}>
