@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     lines.push({ product_name: product.name, unit_price_paise: product.price * 100, quantity: item.quantity });
   }
   const subtotal = lines.reduce((sum, line) => sum + line.unit_price_paise * line.quantity, 0);
-  const shipping = subtotal >= 49900 ? 0 : 4900;
+  const shipping = subtotal > 49900 ? 0 : 4900;
   const admin = createClient(url, serviceKey, { auth: { persistSession: false, autoRefreshToken: false } });
   const { data: order, error: orderError } = await admin.from('orders').insert({
     user_id: authData.user.id, status: 'pending', subtotal_paise: subtotal,
