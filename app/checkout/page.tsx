@@ -193,7 +193,7 @@ export default function CheckoutPage() {
 
                 <div className={styles.row}>
                   <Input
-                    label="ZIP Code"
+                    label="Pincode"
                     value={shippingInfo.zip}
                     onChange={(e) => setShippingInfo({ ...shippingInfo, zip: e.target.value })}
                     error={errors.zip}
@@ -259,7 +259,7 @@ export default function CheckoutPage() {
                 <span>{shipping === 0 ? 'FREE' : `${formatCurrencyExact(shipping)}`}</span>
               </div>
               <div className={styles.summaryRow}>
-                <span>Tax</span>
+                <span>GST (included)</span>
                 <span>{formatCurrencyExact(tax)}</span>
               </div>
               <div className={styles.divider}></div>
