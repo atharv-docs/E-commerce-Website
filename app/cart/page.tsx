@@ -75,14 +75,14 @@ export default function CartPage() {
 
             <div className={styles.summaryRow}>
               <span>GST</span>
-              <span>${tax.toFixed(2)}</span>
+              <span>{tax === 0 ? "Included in prices" : formatCurrencyExact(tax)}</span>
             </div>
 
             <div className={styles.divider}></div>
 
             <div className={styles.summaryRow}>
               <span className={styles.totalLabel}>Total</span>
-              <span className={styles.totalValue}>${grandTotal.toFixed(2)}</span>
+              <span className={styles.totalValue}>{formatCurrencyExact(grandTotal)}</span>
             </div>
 
             <Link href="/checkout" className={styles.checkoutBtn}>
