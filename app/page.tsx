@@ -17,7 +17,7 @@ export default function Home() {
         <div className={styles.heroContent}>
           <span className={styles.heroBadge}>🔥 New Season Deals</span>
           <h1 className={styles.heroTitle}>
-            Discover Amazing Products at Great Prices
+            Thoughtful finds. Better everyday living.
           </h1>
           <p className={styles.heroSubtitle}>
             Your one-stop destination for electronics, fashion, home & living, and more.
@@ -48,22 +48,22 @@ export default function Home() {
             <div className={styles.feature}>
               <div className={styles.featureIcon}><Zap size={24} /></div>
               <h3>Fast Delivery</h3>
-              <p>Free shipping on orders over $50</p>
+              <p>Free shipping on orders over ₹499</p>
             </div>
             <div className={styles.feature}>
               <div className={styles.featureIcon}><Shield size={24} /></div>
               <h3>Secure Payment</h3>
-              <p>100% secure payment processing</p>
+              <p>Secure checkout experience</p>
             </div>
             <div className={styles.feature}>
               <div className={styles.featureIcon}><RotateCcw size={24} /></div>
               <h3>Easy Returns</h3>
-              <p>30-day hassle-free returns</p>
+              <p>Easy support when you need it</p>
             </div>
             <div className={styles.feature}>
               <div className={styles.featureIcon}><Truck size={24} /></div>
               <h3>Track Order</h3>
-              <p>Real-time order tracking</p>
+              <p>A simpler shopping experience</p>
             </div>
           </div>
         </div>
