@@ -11,6 +11,7 @@ import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import styles from './page.module.css';
 import { formatCurrency, formatCurrencyExact } from '@/lib/format';
+import { isSupabaseConfigured, supabase } from '@/lib/supabase';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -36,7 +37,7 @@ export default function CheckoutPage() {
 
   const { items, total } = state;
   const shipping = total > 499 ? 0 : 49;
-  const tax = total * 0.18;
+  const tax = 0;
   const grandTotal = total + shipping + tax;
 
   const validateShipping = () => {
@@ -61,19 +62,34 @@ export default function CheckoutPage() {
     }
   };
 
-  const handlePaymentSubmit = (e: React.FormEvent) => {
+  const handlePaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
     setLoading(true);
-
-    // Simulate payment processing
-    setTimeout(() => {
-      const newOrderId = `SN-${Date.now().toString(36).toUpperCase()}`;
+    try {
+      let newOrderId = 'DEMO-' + Date.now().toString(36).toUpperCase();
+      if (isSupabaseConfigured && supabase) {
+        const { data: sessionData } = await supabase.auth.getSession();
+        const accessToken = sessionData.session?.access_token;
+        if (!accessToken) throw new Error('Sign in before placing an order.');
+        const response = await fetch('/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + accessToken },
+          body: JSON.stringify({ items: items.map((item) => ({ productId: item.product.id, quantity: item.quantity })), shippingAddress: shippingInfo }),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Unable to place order.');
+        newOrderId = 'SN-' + String(result.orderId).slice(0, 8).toUpperCase();
+      }
       setOrderId(newOrderId);
       clearCart();
-      setLoading(false);
       setStep('confirmation');
-      showToast('Order placed successfully!', 'success');
-    }, 2000);
+      showToast(isSupabaseConfigured ? 'Your order has been saved.' : 'Demo order created. Connect Supabase to save real orders.', 'success');
+    } catch (error) {
+      showToast(error instanceof Error ? error.message : 'Unable to place order.', 'error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (items.length === 0 && step !== 'confirmation') {
@@ -155,7 +171,7 @@ export default function CheckoutPage() {
                   value={shippingInfo.address}
                   onChange={(e) => setShippingInfo({ ...shippingInfo, address: e.target.value })}
                   error={errors.address}
-                  placeholder="123 Main Street"
+                  placeholder="House no., street, locality"
                 />
 
                 <div className={styles.row}>
@@ -164,14 +180,14 @@ export default function CheckoutPage() {
                     value={shippingInfo.city}
                     onChange={(e) => setShippingInfo({ ...shippingInfo, city: e.target.value })}
                     error={errors.city}
-                    placeholder="New York"
+                    placeholder="Jammu"
                   />
                   <Input
                     label="State"
                     value={shippingInfo.state}
                     onChange={(e) => setShippingInfo({ ...shippingInfo, state: e.target.value })}
                     error={errors.state}
-                    placeholder="NY"
+                    placeholder="Jammu & Kashmir"
                   />
                 </div>
 
@@ -181,14 +197,14 @@ export default function CheckoutPage() {
                     value={shippingInfo.zip}
                     onChange={(e) => setShippingInfo({ ...shippingInfo, zip: e.target.value })}
                     error={errors.zip}
-                    placeholder="10001"
+                    placeholder="180001"
                   />
                   <Input
                     label="Phone"
                     value={shippingInfo.phone}
                     onChange={(e) => setShippingInfo({ ...shippingInfo, phone: e.target.value })}
                     error={errors.phone}
-                    placeholder="(555) 123-4567"
+                    placeholder="9876543210"
                   />
                 </div>
 
@@ -203,38 +219,15 @@ export default function CheckoutPage() {
                 <h2>Payment Information</h2>
                 <p className={styles.demoNote}>🔒 Demo Mode - No real payment will be processed</p>
 
-                <div className={styles.cardInput}>
-                  <CreditCard size={24} />
-                  <input
-                    type="text"
-                    placeholder="Card Number"
-                    defaultValue="4242 4242 4242 4242"
-                    className={styles.cardNumber}
-                  />
-                </div>
-
-                <div className={styles.row}>
-                  <input
-                    type="text"
-                    placeholder="MM/YY"
-                    defaultValue="12/28"
-                    className={styles.cardExpiry}
-                  />
-                  <input
-                    type="text"
-                    placeholder="CVC"
-                    defaultValue="123"
-                    className={styles.cardCvc}
-                  />
-                </div>
+                <p className={styles.demoNote}>Cash on Delivery. Pay when your order arrives. No card details are collected.</p>
 
                 <div className={styles.security}>
                   <Lock size={16} />
-                  <span>Your payment information is secure</span>
+                  <span>Your order will be confirmed before dispatch</span>
                 </div>
 
                 <Button type="submit" fullWidth size="lg" loading={loading}>
-                  Place Order - {formatCurrencyExact(grandTotal)}
+                  Place COD Order - {formatCurrencyExact(grandTotal)}
                 </Button>
               </form>
             )}
@@ -272,7 +265,7 @@ export default function CheckoutPage() {
               <div className={styles.divider}></div>
               <div className={styles.summaryRow}>
                 <span className={styles.total}>Total</span>
-                <span className={styles.totalValue}>${grandTotal.toFixed(2)}</span>
+                <span className={styles.totalValue}>{formatCurrencyExact(grandTotal)}</span>
               </div>
             </div>
           </div>
