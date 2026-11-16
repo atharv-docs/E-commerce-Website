@@ -7,6 +7,7 @@ import { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { useToast } from '@/context/ToastContext';
 import styles from './ProductCard.module.css';
+import { formatCurrency } from '@/lib/format';
 
 interface ProductCardProps {
   product: Product;
@@ -55,9 +56,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         <div className={styles.priceRow}>
           <div className={styles.price}>
-            <span className={styles.currentPrice}>${product.price}</span>
+            <span className={styles.currentPrice}>{formatCurrency(product.price)}</span>
             {product.originalPrice && (
-              <span className={styles.originalPrice}>${product.originalPrice}</span>
+              <span className={styles.originalPrice}>{formatCurrency(product.originalPrice)}</span>
             )}
           </div>
           <button
