@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !anonKey || !serviceKey) return NextResponse.json({ error: 'Order service is not configured.' }, { status: 503 });
 
-  const token = request.headers.get('authorization')?.replace(/^Bearer\\s+/i, '');
+  const token = request.headers.get('authorization')?.replace(/^Bearer\s+/i, '');
   if (!token) return NextResponse.json({ error: 'Sign in before placing an order.' }, { status: 401 });
   const authClient = createClient(url, anonKey);
   const { data: authData, error: authError } = await authClient.auth.getUser(token);
