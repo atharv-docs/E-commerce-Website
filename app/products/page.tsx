@@ -17,12 +17,12 @@ function ProductsContent() {
   const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [sortBy, setSortBy] = useState(initialSort);
   const [showFilters, setShowFilters] = useState(false);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 2000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 200000]);
 
   const filteredProducts = React.useMemo(() => {
     let result = searchQuery ? searchProducts(searchQuery) : getProductsByCategory(category);
 
-    if (priceRange[0] > 0 || priceRange[1] < 2000) {
+    if (priceRange[0] > 0 || priceRange[1] < 200000) {
       result = result.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
     }
 
