@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ShopNest
 
-## Getting Started
+A responsive Next.js storefront with product discovery, cart management, customer authentication, and Cash on Delivery checkout.
 
-First, run the development server:
+## Stack
+- Next.js 14 App Router, React 18, TypeScript
+- Supabase Auth and PostgreSQL for persistent accounts and orders
+- CSS Modules and Lucide icons
 
+## Run locally
 ```bash
+npm install
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+``
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The storefront runs in demo mode without Supabase credentials. Demo accounts and demo orders are stored only in the browser and are not real customer records.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Enable the backend
+1. Create a Supabase project.
+2. Run `supabase/schema.sql` in the Supabase SQL editor.
+3. Add `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, and `SUPABASE_SERVICE_ROLE_KEY` to `.env.local`.
+4. Enable Email authentication in Supabase.
+5. Restart the Next.js server.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The service-role key is server-only and must never use a `NEXT_PUBLIC_` prefix. The order endpoint validates the customer's Supabase access token, looks up product prices from the server-side catalog, and writes order and line-item records. Checkout currently supports Cash on Delivery; no card payments are processed.
 
-## Learn More
+## Notes
+- Demo catalog prices have been converted to approximate INR values for the India storefront.
+- Shipping is ₹49 below ₹499 and free above that threshold.
+- GST is treated as included in the displayed prices in this demo. Configure tax rules for your actual products and business before launch.
+- The Supabase schema stores monetary values as integer paise to avoid floating-point rounding.
+- Product inventory and catalog administration are not yet connected to a live database. The SQL schema is ready for that next step.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Commands
+- `npm run dev`: local development
+- `npm run typecheck`: TypeScript validation
+- `npm run build`: production build
