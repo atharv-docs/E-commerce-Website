@@ -377,3 +377,28 @@
     flex-direction: column;
   }
 }
+/* ShopNest storefront refresh */
+.hero { position:relative; isolation:isolate; grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr); gap:clamp(28px,5vw,76px); padding:clamp(52px,7vw,92px) max(24px,calc((100vw - 1180px)/2)); background:radial-gradient(circle at 82% 20%,rgba(220,112,69,.16),transparent 34%),#f3eee7; min-height:570px; }
+.heroContent { max-width:620px; gap:22px; }
+.heroBadge { background:#24231f; color:#fff; border-radius:999px; letter-spacing:.04em; font-size:.78rem; text-transform:uppercase; }
+.heroTitle { font-size:clamp(2.7rem,5vw,4.65rem); line-height:1.04; letter-spacing:-.055em; color:#24231f; }
+.heroSubtitle { max-width:520px; color:#68645e; font-size:1.05rem; line-height:1.8; }
+.primaryBtn { background:#c45f3d; border-radius:999px; padding:15px 25px; box-shadow:0 12px 28px rgba(196,95,61,.2); }
+.primaryBtn:hover { background:#a94e31; }
+.secondaryBtn { border:1px solid #bdb4a9; border-radius:999px; color:#24231f; padding:15px 25px; }
+.secondaryBtn:hover { background:#24231f; border-color:#24231f; }
+.heroImg { max-width:540px; aspect-ratio:1.08; object-fit:cover; border-radius:30px; box-shadow:0 28px 70px rgba(45,35,25,.18); }
+.features { background:#fff; padding:28px 16px; }
+.featuresGrid { gap:12px; }
+.feature { background:transparent; border:1px solid #eee9e2; border-radius:16px; box-shadow:none; padding:20px 14px; }
+.feature:hover { transform:translateY(-2px); box-shadow:0 12px 28px rgba(35,30,24,.06); }
+.featureIcon { background:#f5e7df; color:#b95737; border-radius:14px; }
+.feature h3 { color:#292722; } .feature p { color:#77716a; }
+.categories,.products { padding-top:76px; padding-bottom:76px; }
+.sectionTitle { color:#26241f; letter-spacing:-.035em; font-size:clamp(1.65rem,3vw,2.2rem); }
+.categoryCard { border:1px solid #eee9e2; box-shadow:none; border-radius:16px; background:#fff; padding:22px 18px; }
+.categoryCard:hover { background:#292722; color:#fff; }
+.deals { background:#f3eee7; } .newsletter { background:#292722; }
+.newsletterBtn { background:#c45f3d; border-radius:999px; } .newsletterInput { border-radius:999px; }
+@media(max-width:1024px){.hero{padding:48px 24px}.heroTitle{font-size:3rem}}
+@media(max-width:640px){.hero{padding:34px 18px 44px;gap:28px}.heroTitle{font-size:2.45rem}.heroImg{border-radius:20px}.categories,.products{padding-top:48px;padding-bottom:48px}.categoryCard{padding:16px 12px}}
