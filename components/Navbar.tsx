@@ -8,6 +8,7 @@ import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { searchProducts, Product } from '@/data/products';
 import styles from './Navbar.module.css';
+import { formatCurrency } from '@/lib/format';
 
 export const Navbar: React.FC = () => {
   const router = useRouter();
@@ -91,7 +92,7 @@ export const Navbar: React.FC = () => {
                   <img src={product.images[0]} alt={product.name} className={styles.resultImage} />
                   <div className={styles.resultInfo}>
                     <span className={styles.resultName}>{product.name}</span>
-                    <span className={styles.resultPrice}>${product.price}</span>
+                    <span className={styles.resultPrice}>{formatCurrency(product.price)}</span>
                   </div>
                 </div>
               ))}

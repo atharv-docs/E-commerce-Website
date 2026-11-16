@@ -5,6 +5,7 @@ import { Plus, Minus, Trash2 } from 'lucide-react';
 import { CartItem as CartItemType } from '@/context/CartContext';
 import { useCart } from '@/context/CartContext';
 import styles from './CartItem.module.css';
+import { formatCurrency } from '@/lib/format';
 
 interface CartItemProps {
   item: CartItemType;
@@ -20,7 +21,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
 
       <div className={styles.details}>
         <h3 className={styles.name}>{product.name}</h3>
-        <span className={styles.price}>${product.price}</span>
+        <span className={styles.price}>{formatCurrency(product.price)}</span>
       </div>
 
       <div className={styles.quantity}>
@@ -40,7 +41,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
         </button>
       </div>
 
-      <span className={styles.subtotal}>${(product.price * quantity).toFixed(2)}</span>
+      <span className={styles.subtotal}>{formatCurrency(product.price * quantity)}</span>
 
       <button
         onClick={() => removeItem(product.id)}

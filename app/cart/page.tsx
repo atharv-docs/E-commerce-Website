@@ -6,13 +6,14 @@ import { ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { CartItem } from '@/components/CartItem';
 import styles from './page.module.css';
+import { formatCurrency, formatCurrencyExact } from '@/lib/format';
 
 export default function CartPage() {
   const { state, clearCart } = useCart();
   const { items, total } = state;
 
-  const shipping = total > 50 ? 0 : 9.99;
-  const tax = total * 0.08;
+  const shipping = total > 499 ? 0 : 49;
+  const tax = 0;
   const grandTotal = total + shipping + tax;
 
   if (items.length === 0) {
@@ -58,30 +59,30 @@ export default function CartPage() {
 
             <div className={styles.summaryRow}>
               <span>Subtotal</span>
-              <span>${total.toFixed(2)}</span>
+              <span>{formatCurrencyExact(total)}</span>
             </div>
 
             <div className={styles.summaryRow}>
               <span>Shipping</span>
-              <span>{shipping === 0 ? <span className={styles.free}>FREE</span> : `$${shipping.toFixed(2)}`}</span>
+              <span>{shipping === 0 ? <span className={styles.free}>FREE</span> : formatCurrencyExact(shipping)}</span>
             </div>
 
             {shipping > 0 && (
               <p className={styles.shippingNote}>
-                Free shipping on orders over $50!
+                Free shipping on orders over ₹499!
               </p>
             )}
 
             <div className={styles.summaryRow}>
-              <span>Tax (8%)</span>
-              <span>${tax.toFixed(2)}</span>
+              <span>GST (included)</span>
+              <span>{tax === 0 ? "Included in prices" : formatCurrencyExact(tax)}</span>
             </div>
 
             <div className={styles.divider}></div>
 
             <div className={styles.summaryRow}>
               <span className={styles.totalLabel}>Total</span>
-              <span className={styles.totalValue}>${grandTotal.toFixed(2)}</span>
+              <span className={styles.totalValue}>{formatCurrencyExact(grandTotal)}</span>
             </div>
 
             <Link href="/checkout" className={styles.checkoutBtn}>
